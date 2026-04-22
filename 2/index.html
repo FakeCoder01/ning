@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智云科技 · 精英终端设备</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05080f;
+  --bg2: #090d18;
+  --surface: #0d1425;
+  --surface2: #111a30;
+  --border: rgba(100,180,255,0.12);
+  --gold: #e8c06a;
+  --gold2: #f5d98a;
+  --cyan: #4af0d4;
+  --blue: #3a8ffa;
+  --purple: #9b6bff;
+  --text: #e8edf8;
+  --muted: #7a8aaa;
+  --red: #ff5c6a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+/* ─── NAVBAR ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 5%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5,8,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--cyan); }
+
+.nav-cta {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: #fff !important;
+  padding: 0.45rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem !important;
+  transition: opacity 0.3s !important;
+}
+.nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 5% 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(58,143,250,0.18), transparent 70%);
+  top: -100px; left: -150px;
+  animation: orb-drift 12s ease-in-out infinite alternate;
+}
+.hero-orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(74,240,212,0.14), transparent 70%);
+  bottom: -80px; right: -100px;
+  animation: orb-drift 15s ease-in-out infinite alternate-reverse;
+}
+.hero-orb-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(155,107,255,0.12), transparent 70%);
+  top: 50%; left: 55%;
+  animation: orb-drift 10s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.1); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(74,240,212,0.08);
+  border: 1px solid rgba(74,240,212,0.3);
+  border-radius: 50px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.78rem;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  margin-bottom: 2rem;
+  animation: fade-up 0.8s ease both;
+}
+.hero-badge::before {
+  content: '●';
+  font-size: 0.5rem;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+  animation: fade-up 0.9s 0.15s ease both;
+}
+
+.hero h1 .line1 { display: block; color: var(--text); }
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(90deg, var(--gold), var(--cyan), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200%;
+  animation: shimmer 4s linear infinite, fade-up 0.9s 0.15s ease both;
+}
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.hero p {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+  animation: fade-up 1s 0.3s ease both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fade-up 1s 0.45s ease both;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+  color: #fff;
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 8px 30px rgba(58,143,250,0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(58,143,250,0.5);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s;
+}
+.btn-ghost:hover {
+  border-color: var(--cyan);
+  background: rgba(74,240,212,0.05);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 4rem;
+  animation: fade-up 1s 0.6s ease both;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  display: block;
+}
+.stat-lbl { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SECTIONS ─── */
+section { padding: 100px 5%; }
+
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.8rem;
+}
+.section-header h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+.section-header p { color: var(--muted); max-width: 520px; margin: 0 auto; font-size: 0.95rem; }
+
+/* ─── FREE MONTH BANNER ─── */
+.free-banner {
+  background: linear-gradient(135deg, rgba(232,192,106,0.08), rgba(74,240,212,0.08));
+  border: 1px solid rgba(232,192,106,0.3);
+  border-radius: 20px;
+  padding: 3rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto 80px;
+}
+.free-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,192,106,0.04), transparent);
+  pointer-events: none;
+}
+.free-banner .ribbon {
+  position: absolute;
+  top: 20px; right: -30px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 2.5rem;
+  transform: rotate(35deg);
+  letter-spacing: 0.1em;
+}
+.free-banner h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: var(--gold2);
+}
+.free-banner p { color: var(--muted); margin-bottom: 1.5rem; }
+.ai-logos {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.ai-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.ai-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+.chatgpt .dot { background: #10a37f; }
+.gemini .dot { background: #4285f4; }
+.kimi .dot { background: #7c4dff; }
+
+/* ─── PRODUCTS GRID ─── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  position: relative;
+  cursor: pointer;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(74,240,212,0.3);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px rgba(74,240,212,0.06);
+}
+.product-card.featured {
+  border-color: rgba(232,192,106,0.35);
+}
+.product-card.featured:hover {
+  border-color: rgba(232,192,106,0.6);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px rgba(232,192,106,0.08);
+}
+
+.product-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+.badge-hot { background: rgba(255,92,106,0.2); color: var(--red); border: 1px solid rgba(255,92,106,0.3); }
+.badge-new { background: rgba(74,240,212,0.15); color: var(--cyan); border: 1px solid rgba(74,240,212,0.3); }
+.badge-popular { background: rgba(232,192,106,0.15); color: var(--gold); border: 1px solid rgba(232,192,106,0.3); }
+
+.product-img {
+  height: 180px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.product-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.02), transparent 60%);
+}
+.product-img.dell-bg { background: linear-gradient(135deg, #0d1e3a, #0a1528); }
+.product-img.lenovo-bg { background: linear-gradient(135deg, #1a1014, #0d0a14); }
+.product-img.stick-bg { background: linear-gradient(135deg, #041a14, #020d0e); }
+
+.product-body { padding: 1.5rem; }
+.product-brand {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.product-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+}
+.product-desc { font-size: 0.84rem; color: var(--muted); margin-bottom: 1.2rem; line-height: 1.6; }
+
+.product-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+.spec-tag {
+  font-size: 0.73rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.product-price { font-family: 'Noto Serif SC', serif; }
+.price-from { font-size: 0.72rem; color: var(--muted); }
+.price-num { font-size: 1.6rem; font-weight: 700; color: var(--gold2); }
+.price-unit { font-size: 0.78rem; color: var(--muted); }
+
+.btn-buy {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.btn-buy:hover { opacity: 0.85; transform: scale(1.04); }
+
+.product-include {
+  margin-top: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(74,240,212,0.06);
+  border: 1px solid rgba(74,240,212,0.15);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: var(--cyan);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ─── PLANS ─── */
+.plans-section { background: var(--bg2); }
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+.plan-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.plan-card.recommended {
+  border-color: rgba(58,143,250,0.5);
+  background: linear-gradient(160deg, rgba(58,143,250,0.05), var(--surface));
+}
+.plan-card.recommended::before {
+  content: '推荐';
+  position: absolute;
+  top: -12px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 0.1em;
+}
+.plan-card.gold-plan {
+  border-color: rgba(232,192,106,0.5);
+  background: linear-gradient(160deg, rgba(232,192,106,0.06), var(--surface));
+}
+.plan-card.gold-plan::before {
+  content: '旗舰';
+  position: absolute;
+  top: -12px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--gold), #c8860a);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 0.1em;
+}
+
+.plan-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.plan-tokens {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.plan-price-wrap { margin-bottom: 1.5rem; }
+.plan-price {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.plan-price .currency { font-size: 1.2rem; vertical-align: super; font-weight: 600; }
+.plan-price .period { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+.plan-free .plan-price { color: var(--cyan); }
+.plan-basic .plan-price { color: var(--text); }
+.plan-recommended .plan-price { color: var(--blue); }
+.plan-gold .plan-price { color: var(--gold2); }
+
+.plan-features { list-style: none; text-align: left; margin-bottom: 1.8rem; }
+.plan-features li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.plan-features li::before { content: '✓'; color: var(--cyan); font-weight: 700; flex-shrink: 0; }
+.plan-features li.no::before { content: '✗'; color: rgba(255,255,255,0.2); }
+.plan-features li.no { color: rgba(255,255,255,0.2); }
+
+.btn-plan {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: 'Noto Sans SC', sans-serif;
+  transition: all 0.25s;
+}
+.btn-plan-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-plan-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+.btn-plan-blue {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(58,143,250,0.3);
+}
+.btn-plan-blue:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-plan-gold {
+  background: linear-gradient(135deg, var(--gold), #c8860a);
+  color: #1a1000;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(232,192,106,0.3);
+}
+.btn-plan-gold:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* ─── ADDONS ─── */
+.addon-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.addon-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan), var(--purple));
+}
+.addon-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.addon-price {
+  font-size: 3rem;
+  font-weight: 900;
+  font-family: 'Noto Serif SC', serif;
+  color: var(--cyan);
+  margin: 1rem 0;
+}
+.addon-price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+.addon-desc { color: var(--muted); font-size: 0.9rem; }
+
+/* ─── HOW IT WORKS ─── */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  counter-reset: steps;
+}
+.step {
+  position: relative;
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  counter-increment: steps;
+}
+.step::before {
+  content: counter(steps, decimal-leading-zero);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  top: 1rem; right: 1.2rem;
+  line-height: 1;
+}
+.step-icon { font-size: 2rem; margin-bottom: 1rem; }
+.step h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.step p { font-size: 0.84rem; color: var(--muted); }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-section { background: var(--bg2); }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.testimonial-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  position: relative;
+}
+.testimonial-card::before {
+  content: '"';
+  font-family: 'Noto Serif SC', serif;
+  font-size: 5rem;
+  line-height: 1;
+  color: rgba(74,240,212,0.1);
+  position: absolute;
+  top: -0.5rem; left: 1rem;
+}
+.testimonial-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+  position: relative;
+}
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.av1 { background: linear-gradient(135deg, #3a8ffa, #9b6bff); }
+.av2 { background: linear-gradient(135deg, #4af0d4, #3a8ffa); }
+.av3 { background: linear-gradient(135deg, #e8c06a, #ff5c6a); }
+.av4 { background: linear-gradient(135deg, #9b6bff, #ff5c6a); }
+.user-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.user-role { font-size: 0.75rem; color: var(--muted); }
+.stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.05em; margin-bottom: 1rem; }
+
+/* ─── FAQ ─── */
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1.4rem 0;
+}
+.faq-q {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-q::after { content: '+'; color: var(--cyan); font-size: 1.2rem; }
+.faq-a {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.8rem;
+  line-height: 1.75;
+}
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  text-align: center;
+  padding: 120px 5%;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(58,143,250,0.1), transparent 60%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+.cta-section p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1rem; }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 5%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--cyan); }
+.footer-copy { font-size: 0.78rem; color: rgba(122,138,170,0.5); }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">智云科技</div>
+  <ul class="nav-links">
+    <li><a href="#products">产品</a></li>
+    <li><a href="#plans">订阅方案</a></li>
+    <li><a href="#how">购买流程</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#contact" class="nav-cta">立即购买</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+
+  <div class="hero-badge">🚀 &nbsp;首月赠送无限 AI 对话服务</div>
+
+  <h1>
+    <span class="line1">企业级精英终端</span>
+    <span class="line2">AI 赋能 · 无界计算</span>
+  </h1>
+
+  <p>专业瘦客户端与迷你主机，搭载 OpenClaw 智能平台，预置 ChatGPT · Gemini · Kimi 全模型访问权限，助力您的高效工作生态。</p>
+
+  <div class="hero-buttons">
+    <a href="#products" class="btn-primary">浏览全部产品</a>
+    <a href="#plans" class="btn-ghost">查看订阅方案</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-num">5,000+</span><span class="stat-lbl">企业用户</span></div>
+    <div class="stat"><span class="stat-num">3大</span><span class="stat-lbl">AI 平台接入</span></div>
+    <div class="stat"><span class="stat-num">99.9%</span><span class="stat-lbl">服务可用性</span></div>
+    <div class="stat"><span class="stat-num">7×24</span><span class="stat-lbl">技术支持</span></div>
+  </div>
+</section>
+
+<!-- FREE MONTH BANNER -->
+<section style="padding: 40px 5% 80px;">
+  <div class="free-banner reveal">
+    <div class="ribbon">限时优惠</div>
+    <h3>🎁 购机即享 · 首月 AI 无限畅用</h3>
+    <p>每台设备购买后，首月免费解锁三大顶级 AI 大模型，无限制对话，无 Token 消耗烦恼。</p>
+    <div class="ai-logos">
+      <div class="ai-pill chatgpt"><span class="dot"></span> ChatGPT</div>
+      <div class="ai-pill gemini"><span class="dot"></span> Gemini</div>
+      <div class="ai-pill kimi"><span class="dot"></span> Kimi</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header reveal">
+    <div class="section-tag">产品中心</div>
+    <h2>选择您的终端设备</h2>
+    <p>全系设备均预装 OpenClaw 智能管理平台，开箱即可接入三大 AI 模型服务</p>
+  </div>
+
+  <div class="products-grid">
+
+    <!-- DELL Thin Client 1 -->
+    <div class="product-card reveal reveal-delay-1">
+      <span class="product-badge badge-hot">热销</span>
+      <div class="product-img dell-bg">🖥️</div>
+      <div class="product-body">
+        <div class="product-brand">DELL · 瘦客户端</div>
+        <div class="product-name">Wyse 5070 精英版</div>
+        <div class="product-desc">戴尔企业级瘦客户端，Intel 四核处理器，超低功耗，适合远程办公与多任务并行处理场景。</div>
+        <div class="product-specs">
+          <span class="spec-tag">Intel J4105</span>
+          <span class="spec-tag">8GB RAM</span>
+          <span class="spec-tag">128GB SSD</span>
+          <span class="spec-tag">双千兆网口</span>
+          <span class="spec-tag">4K 输出</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥2,299</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELL Thin Client 2 -->
+    <div class="product-card featured reveal reveal-delay-2">
+      <span class="product-badge badge-popular">推荐</span>
+      <div class="product-img dell-bg">💻</div>
+      <div class="product-body">
+        <div class="product-brand">DELL · 瘦客户端</div>
+        <div class="product-name">Wyse 7070 旗舰版</div>
+        <div class="product-desc">旗舰企业主机，支持 8 路显示输出，专为大型企业与数字化工作台打造的终极解决方案。</div>
+        <div class="product-specs">
+          <span class="spec-tag">Intel i5-9500T</span>
+          <span class="spec-tag">16GB RAM</span>
+          <span class="spec-tag">256GB SSD</span>
+          <span class="spec-tag">8路显示</span>
+          <span class="spec-tag">TPM 2.0</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥4,199</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lenovo Thin Client 1 -->
+    <div class="product-card reveal reveal-delay-1">
+      <span class="product-badge badge-new">新品</span>
+      <div class="product-img lenovo-bg">🖥️</div>
+      <div class="product-body">
+        <div class="product-brand">Lenovo · 瘦客户端</div>
+        <div class="product-name">ThinkCentre M75q 标准版</div>
+        <div class="product-desc">联想商务旗舰，AMD Ryzen 平台，极致静音设计，军工品质抗冲击机身，三年整机保障服务。</div>
+        <div class="product-specs">
+          <span class="spec-tag">AMD Ryzen 5</span>
+          <span class="spec-tag">8GB DDR4</span>
+          <span class="spec-tag">256GB SSD</span>
+          <span class="spec-tag">HDMI+DP</span>
+          <span class="spec-tag">无线6代</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥2,799</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lenovo Thin Client 2 -->
+    <div class="product-card reveal reveal-delay-2">
+      <span class="product-badge badge-popular">企业首选</span>
+      <div class="product-img lenovo-bg">💼</div>
+      <div class="product-body">
+        <div class="product-brand">Lenovo · 瘦客户端</div>
+        <div class="product-name">ThinkCentre M90q 商务版</div>
+        <div class="product-desc">面向大规模部署优化，英特尔 vPro 远程管理，支持集中化运维，大幅降低 IT 维护成本。</div>
+        <div class="product-specs">
+          <span class="spec-tag">Intel i7-12700T</span>
+          <span class="spec-tag">32GB DDR5</span>
+          <span class="spec-tag">512GB NVMe</span>
+          <span class="spec-tag">vPro 远管</span>
+          <span class="spec-tag">雷电4</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥5,499</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stick PC 1 -->
+    <div class="product-card reveal reveal-delay-1">
+      <span class="product-badge badge-new">迷你主机</span>
+      <div class="product-img stick-bg">⚡</div>
+      <div class="product-body">
+        <div class="product-brand">迷你主机 · Stick PC</div>
+        <div class="product-name">CloudStick Pro S1</div>
+        <div class="product-desc">掌心大小的全功能 PC，直插 HDMI 接口即用，预装 OpenClaw 智能平台，随身携带的移动办公利器。</div>
+        <div class="product-specs">
+          <span class="spec-tag">Intel N5100</span>
+          <span class="spec-tag">8GB RAM</span>
+          <span class="spec-tag">128GB eMMC</span>
+          <span class="spec-tag">USB 3.0</span>
+          <span class="spec-tag">OpenClaw</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥899</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stick PC 2 -->
+    <div class="product-card reveal reveal-delay-2">
+      <span class="product-badge badge-hot">爆款</span>
+      <div class="product-img stick-bg">🔥</div>
+      <div class="product-body">
+        <div class="product-brand">迷你主机 · Stick PC</div>
+        <div class="product-name">CloudStick Ultra X1</div>
+        <div class="product-desc">升级版迷你主机，强劲散热系统，支持 4K 60Hz 输出，双频 Wi-Fi 6，内置 OpenClaw 全套智能服务。</div>
+        <div class="product-specs">
+          <span class="spec-tag">Intel N6000</span>
+          <span class="spec-tag">16GB RAM</span>
+          <span class="spec-tag">256GB SSD</span>
+          <span class="spec-tag">4K 60Hz</span>
+          <span class="spec-tag">Wi-Fi 6</span>
+        </div>
+        <div class="product-include">✦ 含首月 AI 无限使用权限</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <div class="price-from">起售价</div>
+            <span class="price-num">¥1,299</span>
+          </div>
+          <button class="btn-buy">立即购买</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANS -->
+<section id="plans" class="plans-section">
+  <div class="section-header reveal">
+    <div class="section-tag">订阅方案</div>
+    <h2>首月免费 · 续费灵活可选</h2>
+    <p>购机后首月享受无限 AI 使用，第二个月起按需选择最适合您的套餐</p>
+  </div>
+
+  <div class="plans-grid">
+
+    <!-- Free Plan -->
+    <div class="plan-card plan-free reveal reveal-delay-1">
+      <div class="plan-name">✨ 首月免费</div>
+      <div class="plan-tokens">无限 Token 畅享</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" style="color: var(--cyan);">
+          <span class="currency">¥</span>0<span class="period">/首月</span>
+        </div>
+      </div>
+      <ul class="plan-features">
+        <li>无限 ChatGPT 访问</li>
+        <li>无限 Gemini 访问</li>
+        <li>无限 Kimi 访问</li>
+        <li>OpenClaw 全功能</li>
+        <li class="no">不限时间不限次数</li>
+      </ul>
+      <button class="btn-plan btn-plan-outline">购机即享</button>
+    </div>
+
+    <!-- Basic Plan -->
+    <div class="plan-card reveal reveal-delay-1">
+      <div class="plan-name">🌙 基础版</div>
+      <div class="plan-tokens">每月 1,000,000 Token</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" style="color: var(--text);">
+          <span class="currency">¥</span>100<span class="period">/月</span>
+        </div>
+      </div>
+      <ul class="plan-features">
+        <li>100万 Token / 月</li>
+        <li>ChatGPT 接入</li>
+        <li>Gemini 接入</li>
+        <li>Kimi 接入</li>
+        <li>基础技术支持</li>
+      </ul>
+      <button class="btn-plan btn-plan-outline">选择此方案</button>
+    </div>
+
+    <!-- Recommended Plan -->
+    <div class="plan-card recommended reveal reveal-delay-2">
+      <div class="plan-name">🚀 专业版</div>
+      <div class="plan-tokens">每月 2,000,000 Token</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" style="color: var(--blue);">
+          <span class="currency">¥</span>200<span class="period">/月</span>
+        </div>
+      </div>
+      <ul class="plan-features">
+        <li>200万 Token / 月</li>
+        <li>ChatGPT 优先访问</li>
+        <li>Gemini 优先访问</li>
+        <li>Kimi 优先访问</li>
+        <li>优先技术支持</li>
+        <li>用量统计报表</li>
+      </ul>
+      <button class="btn-plan btn-plan-blue">选择此方案</button>
+    </div>
+
+    <!-- Gold Plan -->
+    <div class="plan-card gold-plan reveal reveal-delay-3">
+      <div class="plan-name">👑 企业版</div>
+      <div class="plan-tokens">每月 5,000,000 Token</div>
+      <div class="plan-price-wrap">
+        <div class="plan-price" style="color: var(--gold2);">
+          <span class="currency">¥</span>500<span class="period">/月</span>
+        </div>
+      </div>
+      <ul class="plan-features">
+        <li>500万 Token / 月</li>
+        <li>所有模型最高优先</li>
+        <li>企业 API 集成</li>
+        <li>专属客户经理</li>
+        <li>7×24 VIP 支持</li>
+        <li>团队多账号管理</li>
+        <li>自定义使用报告</li>
+      </ul>
+      <button class="btn-plan btn-plan-gold">选择此方案</button>
+    </div>
+
+  </div>
+
+  <!-- Addon -->
+  <div class="addon-card reveal" style="margin-top:0;">
+    <div class="addon-title">⚡ 按需追加 Token</div>
+    <p style="color:var(--muted);font-size:0.85rem;margin-top:0.5rem;">当月 Token 不够用？随时按需购买，无需升级套餐</p>
+    <div class="addon-price">¥75 <span>/ 100万 Token</span></div>
+    <div class="addon-desc">追加 Token 即时到账 · 当月有效 · 不限模型使用<br>最低购买 100万 Token，可批量叠加购买</div>
+    <br>
+    <button class="btn-plan btn-plan-blue" style="width:auto;padding:0.75rem 2.5rem;">追加 Token</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-header reveal">
+    <div class="section-tag">购买流程</div>
+    <h2>四步上手 · 分钟级开始使用</h2>
+    <p>从下单到 AI 辅助工作，全程不超过五分钟</p>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal reveal-delay-1">
+      <div class="step-icon">🛒</div>
+      <h4>选购设备</h4>
+      <p>从瘦客户端或迷你主机中选择适合您的型号，加入购物车并完成支付。</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-icon">📦</div>
+      <h4>极速发货</h4>
+      <p>全国顺丰次日达，设备出厂前完成 OpenClaw 系统预装与激活配置。</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-icon">🔌</div>
+      <h4>开箱即用</h4>
+      <p>插电上网，OpenClaw 自动激活首月 AI 权限，ChatGPT · Gemini · Kimi 即刻可用。</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-icon">📊</div>
+      <h4>续费方案</h4>
+      <p>首月到期前，在 OpenClaw 平台选择适合的订阅方案，一键续期无缝衔接。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header reveal">
+    <div class="section-tag">用户好评</div>
+    <h2>他们选择了智云科技</h2>
+    <p>来自全国各地企业用户和个人买家的真实评价</p>
+  </div>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">公司采购了 20 台联想瘦客户端，OpenClaw 平台的集中管理功能非常出色，AI 接入也让我们团队的文案效率提升了 3 倍以上。</p>
+      <div class="testimonial-user">
+        <div class="avatar av1">张</div>
+        <div>
+          <div class="user-name">张经理</div>
+          <div class="user-role">某互联网公司 IT 总监</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">迷你主机体积超小，插上显示器就是一台完整的 PC，首月 Kimi 和 ChatGPT 免费用真的太香了，现在已经续了企业版套餐。</p>
+      <div class="testimonial-user">
+        <div class="avatar av2">李</div>
+        <div>
+          <div class="user-name">李同学</div>
+          <div class="user-role">自由职业设计师</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-3">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">戴尔 Wyse 旗舰版性能稳定，跑 AI 相关工作流完全没有压力，200元专业版套餐对我们来说性价比极高，强烈推荐！</p>
+      <div class="testimonial-user">
+        <div class="avatar av3">王</div>
+        <div>
+          <div class="user-name">王老板</div>
+          <div class="user-role">中小企业主</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">价格实惠，快递速度很快，第二天就到了。OpenClaw 配置好之后感觉整台机器都活了，AI 工具都能用，太值了！</p>
+      <div class="testimonial-user">
+        <div class="avatar av4">陈</div>
+        <div>
+          <div class="user-name">陈女士</div>
+          <div class="user-role">内容创作者</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-header reveal">
+    <div class="section-tag">常见问题</div>
+    <h2>有问题？我们来解答</h2>
+  </div>
+
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <div class="faq-q">首月免费的 AI 服务具体包含哪些内容？</div>
+      <div class="faq-a">首月免费包含 ChatGPT（GPT-4 级别）、Google Gemini Pro 以及 Kimi 长文本模型的无限次对话访问权限，无 Token 限制，所有功能均通过 OpenClaw 平台一键接入，无需另行注册账号。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">首月结束后，不续费会怎样？</div>
+      <div class="faq-a">首月到期后，AI 模型访问功能将暂停，但设备本身和 OpenClaw 基础系统仍可正常使用。您可以随时在 OpenClaw 管理面板中选择任意订阅方案进行续费，立即恢复访问权限。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Token 是怎么计算的？支持哪些模型？</div>
+      <div class="faq-a">Token 按所有模型的输入+输出合计计算。1M（100万）Token 大约相当于 75 万汉字的对话量。目前接入模型包括 ChatGPT（OpenAI）、Gemini（Google）、Kimi（月之暗面），后续将持续增加更多模型。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">追加购买的 Token 有有效期吗？</div>
+      <div class="faq-a">追加购买的 Token 当月有效，未使用完的部分在自然月结束后清零，不累积到下月。建议根据实际使用量合理购买，避免浪费。企业版用户可联系客服了解 Token 滚存政策。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">设备支持哪些操作系统？OpenClaw 如何安装？</div>
+      <div class="faq-a">所有设备出厂均已预装 OpenClaw 平台，支持 Windows 10/11 及 Linux 环境。设备开机联网后会自动激活 OpenClaw 账号并完成 AI 服务绑定，无需手动安装，真正开箱即用。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">企业批量采购有优惠吗？</div>
+      <div class="faq-a">10 台以上可享受 9 折优惠，50 台以上可享受 8.5 折，100 台以上享受专属报价及企业版订阅折扣。请联系我们的企业销售团队获取定制报价方案。</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="hero-badge" style="animation:none;">🎯 &nbsp;限时特惠 · 立即行动</div>
+  <br><br>
+  <h2>开启 AI 赋能工作新时代</h2>
+  <p>现在下单，即享首月无限 AI 服务，顺丰次日送达，七天无理由退换</p>
+  <div class="hero-buttons">
+    <a href="#products" class="btn-primary">立即选购设备</a>
+    <a href="#plans" class="btn-ghost">查看订阅方案</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <div class="footer-logo">智云科技</div>
+    <p style="color:var(--muted);font-size:0.8rem;margin-top:0.3rem;">让 AI 成为您的工作伙伴</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">产品中心</a>
+    <a href="#">订阅方案</a>
+    <a href="#">企业采购</a>
+    <a href="#">技术支持</a>
+    <a href="#">关于我们</a>
+    <a href="#">隐私政策</a>
+  </div>
+  <div class="footer-copy">© 2025 智云科技 版权所有</div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// FAQ toggle
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  a.style.display = 'none';
+  q.addEventListener('click', () => {
+    const open = a.style.display !== 'none';
+    document.querySelectorAll('.faq-a').forEach(x => x.style.display = 'none');
+    document.querySelectorAll('.faq-q').forEach(x => x.style.setProperty('--after', '"+"'));
+    if (!open) {
+      a.style.display = 'block';
+      q.style.color = 'var(--cyan)';
+    } else {
+      q.style.color = '';
+    }
+  });
+});
+
+// Smooth nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

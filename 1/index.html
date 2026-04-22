@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智云科技 · 智能终端解决方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #1b2d5b;
+  --navy-light: #243a70;
+  --blue:       #2563eb;
+  --blue-light: #eff4ff;
+  --gold:       #b8860b;
+  --gold-bg:    #fdf8ec;
+  --text-h:     #111827;
+  --text-b:     #374151;
+  --text-m:     #6b7280;
+  --text-l:     #9ca3af;
+  --bg:         #ffffff;
+  --bg-off:     #f8f9fb;
+  --bg-section: #f3f6fb;
+  --border:     #e5e9f0;
+  --border-d:   #d1d9e6;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.10);
+  --radius:     10px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans SC',sans-serif;color:var(--text-b);background:var(--bg);-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#f0f0f0}
+::-webkit-scrollbar-thumb{background:#c0c8da;border-radius:3px}
+
+/* TOP BAR */
+.topbar{background:var(--navy);color:rgba(255,255,255,.75);font-size:.75rem;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:34px;}
+.topbar a{color:rgba(255,255,255,.75);transition:color .2s}.topbar a:hover{color:#fff}
+.topbar-left{display:flex;gap:24px}.topbar-right{display:flex;gap:20px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px;box-shadow:var(--shadow-sm);}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Noto Serif SC',serif;font-size:1.2rem;font-weight:900;color:var(--navy);letter-spacing:.5px;}
+.logo-mark{width:36px;height:36px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:.75rem;font-family:'Noto Sans SC',sans-serif;}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--text-b);font-weight:500;transition:color .2s;position:relative;padding-bottom:2px;}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .2s;transform-origin:left;}
+.nav-links a:hover{color:var(--blue)}.nav-links a:hover::after{transform:scaleX(1)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.btn-ghost{font-size:.85rem;color:var(--text-b);padding:8px 16px;border:1px solid var(--border-d);border-radius:6px;cursor:pointer;background:#fff;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-nav{font-size:.85rem;font-weight:700;background:var(--blue);color:#fff;padding:9px 22px;border-radius:6px;border:none;cursor:pointer;transition:background .2s;}
+.btn-nav:hover{background:#1d4ed8}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:560px;padding:64px 5%;background:linear-gradient(160deg,#eef3ff 0%,#f5f7fb 55%,#ffffff 100%);border-bottom:1px solid var(--border);gap:56px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border-d);padding:5px 14px;border-radius:4px;font-size:.75rem;font-weight:700;color:var(--navy);letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px;}
+.hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--blue);}
+.hero h1{font-family:'Noto Serif SC',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.25;color:var(--text-h);margin-bottom:18px;}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero-desc{font-size:1rem;line-height:1.8;color:var(--text-m);margin-bottom:32px;max-width:480px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--navy);color:#fff;font-weight:700;font-size:.9rem;padding:13px 28px;border-radius:7px;border:none;cursor:pointer;transition:background .2s;}
+.btn-primary:hover{background:var(--navy-light)}
+.btn-outline{background:#fff;color:var(--navy);font-weight:600;font-size:.9rem;padding:13px 28px;border-radius:7px;border:1px solid var(--navy);cursor:pointer;transition:all .2s;}
+.btn-outline:hover{background:var(--blue-light);border-color:var(--blue);color:var(--blue)}
+.hero-kpis{display:flex;gap:32px;margin-top:40px;padding-top:32px;border-top:1px solid var(--border-d);}
+.kpi-num{font-size:1.6rem;font-weight:900;color:var(--navy);font-family:'Noto Serif SC',serif;}
+.kpi-label{font-size:.78rem;color:var(--text-m);margin-top:3px}
+.hero-image-panel{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border);aspect-ratio:4/3;background:var(--bg-off);}
+.hero-image-panel img{width:100%;height:100%;object-fit:cover;}
+
+/* TRUST STRIP */
+.trust-strip{display:flex;align-items:stretch;border-bottom:1px solid var(--border);background:#fff;}
+.trust-item{flex:1;display:flex;align-items:center;gap:14px;padding:22px 24px;border-right:1px solid var(--border);}
+.trust-item:last-child{border-right:none}
+.trust-icon{width:40px;height:40px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.trust-text h4{font-size:.875rem;font-weight:700;color:var(--text-h);margin-bottom:2px}
+.trust-text p{font-size:.77rem;color:var(--text-m)}
+
+/* SECTIONS */
+section{padding:72px 5%}
+.section-header{margin-bottom:48px}
+.section-header.center{text-align:center}
+.section-header.center .section-desc{margin:0 auto}
+.eyebrow{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+.section-title{font-family:'Noto Serif SC',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;color:var(--text-h);line-height:1.3;margin-bottom:12px;}
+.section-desc{font-size:.95rem;color:var(--text-m);line-height:1.8;max-width:560px;}
+
+/* PRODUCTS */
+#products{background:var(--bg-section)}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .25s,transform .25s;display:flex;flex-direction:column;}
+.product-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.product-img-wrap{position:relative;height:210px;background:var(--bg-off);overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.product-card:hover .product-img-wrap img{transform:scale(1.04)}
+.p-badge{position:absolute;top:12px;left:12px;font-size:.68rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px;}
+.badge-sale{background:var(--navy);color:#fff}.badge-new{background:var(--blue);color:#fff}.badge-hot{background:#dc2626;color:#fff}.badge-pro{background:#059669;color:#fff}
+.product-body{padding:20px 22px 24px;flex:1;display:flex;flex-direction:column}
+.p-brand{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.p-name{font-family:'Noto Serif SC',serif;font-size:1.05rem;font-weight:700;color:var(--text-h);line-height:1.4;margin-bottom:8px;}
+.p-desc{font-size:.82rem;color:var(--text-m);line-height:1.7;margin-bottom:14px;flex:1;}
+.p-specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.spec{background:var(--bg-section);border:1px solid var(--border);font-size:.7rem;padding:3px 9px;border-radius:3px;color:var(--text-b);}
+.p-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--border);}
+.p-price{font-size:1.45rem;font-weight:900;color:var(--navy);font-family:'Noto Serif SC',serif;}
+.p-price-note{font-size:.72rem;color:var(--text-m);margin-top:2px}
+.btn-buy{background:var(--blue);color:#fff;font-weight:700;font-size:.82rem;padding:9px 20px;border-radius:6px;border:none;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.btn-buy:hover{background:#1d4ed8}
+
+/* AI BAND */
+.ai-band{background:var(--navy);color:#fff;padding:56px 5%;}
+.ai-band-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:56px;flex-wrap:wrap;}
+.ai-band-left{flex:1;min-width:260px}
+.overline{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px;display:block;}
+.ai-band-left h2{font-family:'Noto Serif SC',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;line-height:1.3;margin-bottom:12px;}
+.ai-band-left p{font-size:.9rem;line-height:1.8;color:rgba(255,255,255,.7)}
+.ai-models{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;}
+.model-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:9px 18px;border-radius:6px;font-size:.85rem;font-weight:600;transition:background .2s;}
+.model-pill:hover{background:rgba(255,255,255,.15)}
+.model-dot{width:8px;height:8px;border-radius:50%}
+.dot-gpt{background:#10a37f}.dot-gem{background:#4285f4}.dot-kimi{background:#ff7849}
+.gift-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:28px 36px;text-align:center;min-width:200px;}
+.gift-infinity{font-size:4.5rem;font-weight:900;line-height:1;color:#fff;margin-bottom:8px;}
+.gift-label{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.6}
+.gift-label strong{color:#fff;display:block;font-size:.9rem;margin-bottom:4px}
+
+/* PLANS */
+#plans{background:#fff}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:980px;margin:0 auto;}
+.plan-card{border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;position:relative;transition:box-shadow .25s,transform .25s;background:#fff;display:flex;flex-direction:column;}
+.plan-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.plan-card.plan-featured{border-color:var(--blue);border-width:2px;box-shadow:0 0 0 4px rgba(37,99,235,.07),var(--shadow-md);}
+.plan-popular{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.5px;padding:5px 16px;border-radius:100px;white-space:nowrap;}
+.plan-name{font-family:'Noto Serif SC',serif;font-size:1.1rem;font-weight:700;color:var(--text-h);margin-bottom:4px;}
+.plan-tagline{font-size:.8rem;color:var(--text-m);margin-bottom:20px}
+.plan-tokens{font-size:2.6rem;font-weight:900;color:var(--navy);font-family:'Noto Serif SC',serif;line-height:1;}
+.plan-tokens-unit{font-size:.9rem;color:var(--text-m);display:inline-block;margin-left:4px;}
+.plan-price-row{display:flex;align-items:baseline;gap:4px;margin:16px 0 24px;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.plan-price{font-size:2rem;font-weight:900;color:var(--text-h);font-family:'Noto Serif SC',serif;}
+.plan-currency{font-size:1.1rem;font-weight:700}
+.plan-period{font-size:.82rem;color:var(--text-m)}
+.plan-features{list-style:none;flex:1;margin-bottom:26px}
+.plan-features li{font-size:.84rem;color:var(--text-b);padding:8px 0;border-bottom:1px solid var(--bg-section);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+.plan-features li:last-child{border-bottom:none}
+.check{color:var(--blue);font-size:.9rem;margin-top:1px;flex-shrink:0}.uncheck{color:var(--border-d);font-size:.9rem;margin-top:1px;flex-shrink:0}
+.plan-features li.dim{color:var(--text-l)}
+.btn-plan{width:100%;padding:13px;border-radius:7px;font-size:.875rem;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid var(--navy);background:#fff;color:var(--navy);}
+.btn-plan:hover{background:var(--navy);color:#fff}
+.btn-plan-featured{background:var(--blue);color:#fff;border-color:var(--blue);}
+.btn-plan-featured:hover{background:#1d4ed8;border-color:#1d4ed8}
+.extra-row{max-width:980px;margin:28px auto 0;background:var(--gold-bg);border:1px solid #e2c96b;border-radius:var(--radius);padding:22px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.extra-row-icon{font-size:1.8rem;flex-shrink:0}
+.extra-row-text h4{font-size:.95rem;font-weight:700;color:var(--text-h);margin-bottom:4px}
+.extra-row-text p{font-size:.82rem;color:var(--text-m)}
+.extra-price{margin-left:auto;font-size:1.5rem;font-weight:900;color:var(--gold);font-family:'Noto Serif SC',serif;white-space:nowrap;}
+.extra-price span{font-size:.78rem;font-weight:400;color:var(--text-m);font-family:'Noto Sans SC'}
+
+/* WHY */
+#why{background:var(--bg-section)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.why-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow-sm);transition:box-shadow .2s;}
+.why-card:hover{box-shadow:var(--shadow-md)}
+.why-icon{width:46px;height:46px;border-radius:8px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px;}
+.why-card h4{font-size:.9rem;font-weight:700;color:var(--text-h);margin-bottom:7px}
+.why-card p{font-size:.8rem;color:var(--text-m);line-height:1.7}
+
+/* REVIEWS */
+#reviews{background:#fff}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.review-card{background:var(--bg-section);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.stars{color:#f59e0b;font-size:.85rem;letter-spacing:2px;margin-bottom:12px}
+.review-text{font-size:.85rem;color:var(--text-b);line-height:1.8;margin-bottom:18px;}
+.review-author{display:flex;align-items:center;gap:12px}
+.r-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0;}
+.r-name{font-size:.85rem;font-weight:700;color:var(--text-h)}
+.r-role{font-size:.75rem;color:var(--text-m)}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:72px 5%;text-align:center;color:#fff;}
+.cta-section h2{font-family:'Noto Serif SC',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;margin-bottom:14px;}
+.cta-section p{font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:36px;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-white{background:#fff;color:var(--navy);font-weight:700;font-size:.9rem;padding:13px 30px;border-radius:7px;border:none;cursor:pointer;transition:background .2s;}
+.btn-white:hover{background:#f0f4ff}
+.btn-white-outline{background:transparent;color:#fff;font-weight:600;font-size:.9rem;padding:13px 30px;border-radius:7px;border:1px solid rgba(255,255,255,.45);cursor:pointer;transition:all .2s;}
+.btn-white-outline:hover{background:rgba(255,255,255,.1)}
+
+/* FOOTER */
+footer{background:#0f1b38;color:rgba(255,255,255,.65);padding:56px 5% 28px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand .logo-w{display:flex;align-items:center;gap:9px;color:#fff;font-family:'Noto Serif SC',serif;font-size:1.15rem;font-weight:900;margin-bottom:14px;}
+.logo-mark-w{width:34px;height:34px;border-radius:7px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900;color:#fff;font-family:'Noto Sans SC',sans-serif;}
+.footer-brand p{font-size:.8rem;line-height:1.8;max-width:300px}
+.footer-col h5{font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.5px;margin-bottom:16px;text-transform:uppercase;}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{font-size:.8rem;color:rgba(255,255,255,.55);transition:color .2s;}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:.75rem;color:rgba(255,255,255,.4)}
+.footer-tags{display:flex;gap:10px}
+.f-tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:4px 10px;border-radius:3px;font-size:.7rem;color:rgba(255,255,255,.4);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.products-grid{grid-template-columns:repeat(2,1fr)}.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.reviews-grid{grid-template-columns:1fr}.plans-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.topbar,.nav-links{display:none}.hero{grid-template-columns:1fr;padding-bottom:40px}.hero-image-panel{display:none}.trust-strip{flex-wrap:wrap}.trust-item{min-width:50%;border-right:none;border-bottom:1px solid var(--border)}}
+@media(max-width:640px){.products-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span>📞 400-888-0088</span>
+    <span>📧 sales@zhiyunkeji.cn</span>
+  </div>
+  <div class="topbar-right">
+    <a href="#">企业采购</a>
+    <a href="#">帮助中心</a>
+    <a href="#">登录 / 注册</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-mark">智云</div>
+    智云科技
+  </div>
+  <ul class="nav-links">
+    <li><a href="#products">产品中心</a></li>
+    <li><a href="#plans">订阅方案</a></li>
+    <li><a href="#why">服务优势</a></li>
+    <li><a href="#reviews">客户案例</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-ghost">购物车 (0)</button>
+    <button class="btn-nav">立即购买</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span></span>首月赠送 ChatGPT · Gemini · Kimi 无限额度</div>
+    <h1>企业级智能终端<br><em>搭载 OpenClaw AI 平台</em></h1>
+    <p class="hero-desc">
+      戴尔与联想官方授权服务商，提供瘦客户机及 Stick PC 整套解决方案。每台设备预装 OpenClaw，首月三大 AI 大模型无限量畅用。
+    </p>
+    <div class="hero-btns">
+      <a href="#products"><button class="btn-primary">浏览全部产品</button></a>
+      <a href="#plans"><button class="btn-outline">查看订阅方案</button></a>
+    </div>
+    <div class="hero-kpis">
+      <div class="kpi-item"><div class="kpi-num">3 款</div><div class="kpi-label">支持 AI 大模型</div></div>
+      <div class="kpi-item"><div class="kpi-num">首月 ∞</div><div class="kpi-label">无限量免费使用</div></div>
+      <div class="kpi-item"><div class="kpi-num">¥75</div><div class="kpi-label">每百万 Token 起</div></div>
+    </div>
+  </div>
+  <div class="hero-image-panel">
+    <img src="https://images.unsplash.com/photo-1587202372583-49330a15584d?w=800&q=85" alt="企业智能终端" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80'">
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-icon">🏭</div>
+    <div class="trust-text"><h4>官方授权服务商</h4><p>戴尔 · 联想双品牌认证</p></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🚚</div>
+    <div class="trust-text"><h4>全国顺丰包邮</h4><p>48 小时内送达主要城市</p></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🔧</div>
+    <div class="trust-text"><h4>三年质保</h4><p>原厂配件 · 上门维修</p></div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">📄</div>
+    <div class="trust-text"><h4>支持开票</h4><p>增值税专用发票 · 对公转账</p></div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header reveal">
+    <span class="eyebrow">产品中心</span>
+    <h2 class="section-title">全系产品均预装 OpenClaw AI 平台</h2>
+    <p class="section-desc">购买任意产品，首月即享 ChatGPT、Gemini、Kimi 三大模型无限量调用，开机即用，无需额外配置。</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://i.dell.com/sites/csimages/Product_Imagery/all/optiplex-3000-thin-client.jpg" alt="戴尔 OptiPlex 3000" onerror="this.src='https://images.unsplash.com/photo-1587202372583-49330a15584d?w=500&q=80'">
+        <span class="p-badge badge-sale">热销</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">Dell · OptiPlex</div>
+        <div class="p-name">戴尔 OptiPlex 3000 瘦客户机</div>
+        <p class="p-desc">入门级企业瘦客户机，Intel 四核处理器，超低功耗（≤15W），静音无风扇设计，适合办公室及教育场景大规模部署。</p>
+        <div class="p-specs"><span class="spec">Intel N5105</span><span class="spec">8GB DDR4</span><span class="spec">128GB SSD</span><span class="spec">Win 11 Pro</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥1,799</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://i.dell.com/sites/csimages/Product_Imagery/all/optiplex-5000-thin-client.jpg" alt="戴尔 OptiPlex 5000" onerror="this.src='https://images.unsplash.com/photo-1593640408182-31c228c9a0f7?w=500&q=80'">
+        <span class="p-badge badge-new">新品</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">Dell · OptiPlex</div>
+        <div class="p-name">戴尔 OptiPlex 5000 增强版瘦客户机</div>
+        <p class="p-desc">升级版六核处理器，支持双 4K 显示输出，16GB 大内存，满足数据分析、多任务协作及专业 AI 工作流需求。</p>
+        <div class="p-specs"><span class="spec">Intel i3-1215U</span><span class="spec">16GB DDR5</span><span class="spec">256GB NVMe</span><span class="spec">双 4K 输出</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥2,699</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://p3-ofp.static.pub/fes/cms/2022/09/14/y2v99s14bkv4gkgxwp4uqoqo73nfv7846793.png" alt="联想 ThinkCentre M625q" onerror="this.src='https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500&q=80'">
+        <span class="p-badge badge-sale">畅销</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">Lenovo · ThinkCentre</div>
+        <div class="p-name">联想 ThinkCentre M625q 瘦客户机</div>
+        <p class="p-desc">联想商务系列标杆，通过 MIL-SPEC 军规认证，防震防尘，适合金融、政府、医疗等对可靠性要求严苛的场景。</p>
+        <div class="p-specs"><span class="spec">AMD A6-9500E</span><span class="spec">8GB DDR4</span><span class="spec">128GB eMMC</span><span class="spec">MIL-SPEC</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥1,599</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://p3-ofp.static.pub/fes/cms/2022/01/21/u5nq8g7k50x5h3b1n2a2w4c1y0k5k1647820.png" alt="联想 ThinkCentre M75q" onerror="this.src='https://images.unsplash.com/photo-1632571401005-458e9d244591?w=500&q=80'">
+        <span class="p-badge badge-pro">旗舰</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">Lenovo · ThinkCentre</div>
+        <div class="p-name">联想 ThinkCentre M75q Gen 2 旗舰版</div>
+        <p class="p-desc">搭载 AMD Ryzen 5 PRO 处理器，4K 三屏输出，512GB NVMe 高速存储，是开发者与内容创作者的理想选择。</p>
+        <div class="p-specs"><span class="spec">Ryzen 5 PRO 5650GE</span><span class="spec">16GB DDR4</span><span class="spec">512GB NVMe</span><span class="spec">4K 三屏</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥3,299</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://m.media-amazon.com/images/I/61h8V15iaqL._AC_SL1500_.jpg" alt="StickAI Pro" onerror="this.src='https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?w=500&q=80'">
+        <span class="p-badge badge-hot">爆款</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">智云 · StickAI</div>
+        <div class="p-name">智云 StickAI Pro 电脑棒</div>
+        <p class="p-desc">口袋大小的完整电脑，插入任意 HDMI 显示器即可运行，内置 OpenClaw，随时随地调用 AI 助理，商旅人士首选。</p>
+        <div class="p-specs"><span class="spec">Intel N100</span><span class="spec">8GB LPDDR5</span><span class="spec">128GB eMMC</span><span class="spec">HDMI 4K</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥899</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-img-wrap">
+        <img src="https://m.media-amazon.com/images/I/71S+z+B2-BL._AC_SL1500_.jpg" alt="StickAI Ultra" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80'">
+        <span class="p-badge badge-new">升级款</span>
+      </div>
+      <div class="product-body">
+        <div class="p-brand">智云 · StickAI</div>
+        <div class="p-name">智云 StickAI Ultra 电脑棒 升级版</div>
+        <p class="p-desc">更强的 N200 处理器，256GB 大容量存储，支持外接 SSD，Wi-Fi 6 高速连接，可同时运行多个 AI 工作流。</p>
+        <div class="p-specs"><span class="spec">Intel N200</span><span class="spec">16GB LPDDR5</span><span class="spec">256GB NVMe</span><span class="spec">Wi-Fi 6</span></div>
+        <div class="p-footer">
+          <div><div class="p-price">¥1,299</div><div class="p-price-note">含首月无限 AI 额度</div></div>
+          <button class="btn-buy">加入购物车</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI BAND -->
+<div class="ai-band reveal">
+  <div class="ai-band-inner">
+    <div class="ai-band-left">
+      <span class="overline">首月专属福利</span>
+      <h2>购买即赠<br>三大 AI 模型无限额度</h2>
+      <p>所有产品均预装 OpenClaw 智能调度平台。购买后首月，ChatGPT、Gemini、Kimi 三大模型全部无限量免费调用，让您充分体验 AI 的无限潜能。</p>
+      <div class="ai-models">
+        <div class="model-pill"><span class="model-dot dot-gpt"></span>ChatGPT</div>
+        <div class="model-pill"><span class="model-dot dot-gem"></span>Gemini</div>
+        <div class="model-pill"><span class="model-dot dot-kimi"></span>Kimi</div>
+      </div>
+    </div>
+    <div class="gift-card">
+      <div class="gift-infinity">∞</div>
+      <div class="gift-label"><strong>首月全量免费</strong>三大模型 · 无限 Token<br>购机即激活，无需申请</div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<section id="plans">
+  <div class="section-header center reveal">
+    <span class="eyebrow">续费订阅方案</span>
+    <h2 class="section-title">首月后，按需选择订阅套餐</h2>
+    <p class="section-desc">灵活月付，随时可切换或取消。所有套餐均支持 ChatGPT、Gemini、Kimi 三大模型完整调用。</p>
+  </div>
+  <div class="plans-grid">
+
+    <div class="plan-card reveal">
+      <div class="plan-name">入门版</div>
+      <div class="plan-tagline">轻量日常使用</div>
+      <div><span class="plan-tokens">1M</span><span class="plan-tokens-unit">Tokens / 月</span></div>
+      <div class="plan-price-row">
+        <span class="plan-currency plan-price">¥</span>
+        <span class="plan-price">100</span>
+        <span class="plan-period">/ 月</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span>每月 100 万 Tokens</li>
+        <li><span class="check">✓</span>ChatGPT · Gemini · Kimi 全模型</li>
+        <li><span class="check">✓</span>适合日常问答与文档处理</li>
+        <li><span class="check">✓</span>OpenClaw 控制台完整权限</li>
+        <li class="dim"><span class="uncheck">—</span>优先响应队列</li>
+        <li class="dim"><span class="uncheck">—</span>专属客服通道</li>
+      </ul>
+      <button class="btn-plan">选择入门版</button>
+    </div>
+
+    <div class="plan-card plan-featured reveal">
+      <div class="plan-popular">最受欢迎</div>
+      <div class="plan-name">标准版</div>
+      <div class="plan-tagline">专业用户推荐</div>
+      <div><span class="plan-tokens">2M</span><span class="plan-tokens-unit">Tokens / 月</span></div>
+      <div class="plan-price-row">
+        <span class="plan-currency plan-price">¥</span>
+        <span class="plan-price">200</span>
+        <span class="plan-period">/ 月</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span>每月 200 万 Tokens</li>
+        <li><span class="check">✓</span>ChatGPT · Gemini · Kimi 全模型</li>
+        <li><span class="check">✓</span>适合内容创作与代码辅助</li>
+        <li><span class="check">✓</span>OpenClaw 控制台完整权限</li>
+        <li><span class="check">✓</span>优先响应队列</li>
+        <li><span class="check">✓</span>专属客服通道</li>
+      </ul>
+      <button class="btn-plan btn-plan-featured">选择标准版</button>
+    </div>
+
+    <div class="plan-card reveal">
+      <div class="plan-name">专业版</div>
+      <div class="plan-tagline">团队 / 企业重度用户</div>
+      <div><span class="plan-tokens">5M</span><span class="plan-tokens-unit">Tokens / 月</span></div>
+      <div class="plan-price-row">
+        <span class="plan-currency plan-price">¥</span>
+        <span class="plan-price">500</span>
+        <span class="plan-period">/ 月</span>
+      </div>
+      <ul class="plan-features">
+        <li><span class="check">✓</span>每月 500 万 Tokens</li>
+        <li><span class="check">✓</span>ChatGPT · Gemini · Kimi 全模型</li>
+        <li><span class="check">✓</span>适合企业批量处理与开发</li>
+        <li><span class="check">✓</span>OpenClaw 控制台完整权限</li>
+        <li><span class="check">✓</span>最高优先级响应队列</li>
+        <li><span class="check">✓</span>1 对 1 专属技术支持</li>
+      </ul>
+      <button class="btn-plan">选择专业版</button>
+    </div>
+
+  </div>
+  <div class="extra-row reveal">
+    <span class="extra-row-icon">⚡</span>
+    <div class="extra-row-text">
+      <h4>额外 Token 随时加购，余额永不过期</h4>
+      <p>月度套餐用尽后，可随时在 OpenClaw 控制台一键加购，即充即用，长期有效，不限使用时间。</p>
+    </div>
+    <div class="extra-price">¥75 <span>/ 百万 Token</span></div>
+    <button class="btn-buy" style="flex-shrink:0;">立即加购</button>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="section-header center reveal">
+    <span class="eyebrow">服务优势</span>
+    <h2 class="section-title">为什么选择智云科技</h2>
+    <p class="section-desc">我们不只是硬件经销商，而是为企业提供从硬件到 AI 服务的完整解决方案。</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon">🧠</div><h4>OpenClaw 深度集成</h4><p>自研 AI 调度平台，统一管理多模型调用，智能路由最优响应，无需技术背景即可上手。</p></div>
+    <div class="why-card reveal"><div class="why-icon">🌐</div><h4>多模型统一入口</h4><p>一个界面同时接入 ChatGPT、Gemini、Kimi，无需频繁切换账号，并排对比模型输出。</p></div>
+    <div class="why-card reveal"><div class="why-icon">🔋</div><h4>超低功耗运行</h4><p>瘦客户机整机功耗仅 6–15W，相较传统台式机节省超 80% 电费，降低企业运营成本。</p></div>
+    <div class="why-card reveal"><div class="why-icon">🛡️</div><h4>企业数据安全</h4><p>本地设备处理业务数据，API 密钥加密存储，符合国内企业数据安全合规要求。</p></div>
+    <div class="why-card reveal"><div class="why-icon">🔧</div><h4>三年原厂质保</h4><p>戴尔、联想双品牌官方授权，原厂配件维修，全国服务网络覆盖，支持上门取送。</p></div>
+    <div class="why-card reveal"><div class="why-icon">📊</div><h4>用量可视化仪表盘</h4><p>实时监控各模型 Token 消耗，设置预警阈值，历史账单一键导出，清晰掌握成本。</p></div>
+    <div class="why-card reveal"><div class="why-icon">🚚</div><h4>全国顺丰包邮</h4><p>下单后 24 小时内安排发货，全国主要城市 48 小时内签收，支持预约上门安装。</p></div>
+    <div class="why-card reveal"><div class="why-icon">📋</div><h4>灵活付款 · 支持开票</h4><p>支持微信、支付宝、银行转账及对公账户，可开具增值税专用发票，满足企业财务需求。</p></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header center reveal">
+    <span class="eyebrow">客户评价</span>
+    <h2 class="section-title">来自真实用户的反馈</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">「采购了 20 台联想瘦客户机部署在各门店，整个过程非常顺畅。OpenClaw 让员工可以快速调用 AI 辅助客服工作，效率提升明显，售后服务也很专业。」</p>
+      <div class="review-author">
+        <div class="r-avatar">张</div>
+        <div><div class="r-name">张总监</div><div class="r-role">零售连锁企业 · IT 运营总监</div></div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">「StickAI Pro 电脑棒太适合出差了，插进酒店电视就能工作。首月无限 AI 让我把三个模型都试了个遍，现在稳定订了标准版，每月 200 元非常合理。」</p>
+      <div class="review-author">
+        <div class="r-avatar">李</div>
+        <div><div class="r-name">李先生</div><div class="r-role">外贸公司 · 销售总监</div></div>
+      </div>
+    </div>
+    <div class="review-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">「学校批量采购了戴尔瘦客户机，功耗低、管理方便。老师用 ChatGPT 备课，学生用 Kimi 查资料，加购 Token 的定价也很透明，强烈推荐给其他教育机构。」</p>
+      <div class="review-author">
+        <div class="r-avatar">王</div>
+        <div><div class="r-name">王主任</div><div class="r-role">职业技术学院 · 信息中心主任</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section reveal" id="contact">
+  <h2>准备好为团队配备 AI 工作站了吗？</h2>
+  <p>立即下单，首月赠送三大模型无限额度，全国顺丰包邮，7 天无理由退换。<br>如需批量采购或定制方案，欢迎联系我们的企业销售团队。</p>
+  <div class="cta-btns">
+    <a href="#products"><button class="btn-white">立即选购产品</button></a>
+    <a href="tel:4008880088"><button class="btn-white-outline">📞 联系销售顾问</button></a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-w"><div class="logo-mark-w">智云</div>智云科技</div>
+      <p>专注于企业级 AI 智能终端解决方案，戴尔与联想官方授权服务商，为企业与个人用户提供从硬件到 AI 服务的一站式体验。</p>
+    </div>
+    <div class="footer-col">
+      <h5>产品</h5>
+      <ul>
+        <li><a href="#">戴尔瘦客户机系列</a></li>
+        <li><a href="#">联想瘦客户机系列</a></li>
+        <li><a href="#">StickAI 电脑棒</a></li>
+        <li><a href="#">OpenClaw 平台</a></li>
+        <li><a href="#">企业定制方案</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>订阅服务</h5>
+      <ul>
+        <li><a href="#">入门版 ¥100/月</a></li>
+        <li><a href="#">标准版 ¥200/月</a></li>
+        <li><a href="#">专业版 ¥500/月</a></li>
+        <li><a href="#">加购 Token ¥75/M</a></li>
+        <li><a href="#">企业年度授权</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>支持</h5>
+      <ul>
+        <li><a href="#">快速入门指南</a></li>
+        <li><a href="#">常见问题 FAQ</a></li>
+        <li><a href="#">提交技术工单</a></li>
+        <li><a href="#">隐私政策</a></li>
+        <li><a href="#">服务条款</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 智云科技有限公司 · 沪ICP备2025XXXXXXX号 · 增值电信业务经营许可证</p>
+    <div class="footer-tags">
+      <span class="f-tag">微信支付</span>
+      <span class="f-tag">支付宝</span>
+      <span class="f-tag">增值税发票</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+document.querySelectorAll('.btn-buy, .btn-plan').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const orig = this.textContent;
+    const origBg = this.style.background;
+    this.textContent = '✓ 已添加';
+    this.style.background = '#059669';
+    this.style.borderColor = '#059669';
+    this.style.color = '#fff';
+    setTimeout(() => {
+      this.textContent = orig;
+      this.style.background = origBg;
+      this.style.borderColor = '';
+      this.style.color = '';
+    }, 1800);
+  });
+});
+</script>
+</body>
+</html>
